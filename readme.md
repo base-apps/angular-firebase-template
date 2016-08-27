@@ -25,7 +25,6 @@ You'll need the following software installed to get started.
   - [Git](http://git-scm.com/downloads): Use the installer for your OS.
     - Windows users can also try [Git for Windows](http://git-for-windows.github.io/).
 
-
 ## Get Started
 
 Clone this repository, where `app` is the name of your app.
@@ -66,3 +65,7 @@ To run unit tests with [karma](http://karma-runner.github.io):
 ```bash
 npm test
 ```
+
+## Configuration
+
+Update `app/config-firebase.js` to include your Firebase configuration.  You can find more info [here](https://firebase.google.com/docs/web/setup).
