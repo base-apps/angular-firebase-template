@@ -12,6 +12,11 @@ import 'angular-icons/dist/open-iconic';
 import 'angular-icons/dist/ionicons';
 import 'angular-icons/dist/material-icons';
 
+// Firebase Configuration
+import firebaseconfig from './config-firebase';
+firebase.initializeApp(firebaseconfig);
+
+// Application Configuration
 const AppConfig = ($urlProvider, $locationProvider) => {
   $urlProvider.otherwise('/');
 

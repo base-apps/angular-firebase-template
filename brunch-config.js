@@ -8,13 +8,7 @@ module.exports = {
         'js/app.js':  [
           /^(?!app)/,
           /^app/,
-          "!app/**/*.spec.js",
-          "!app/config-production.js"
-        ]
-      },
-      order: {
-        after: [
-          "app/config-*.js"
+          "!app/**/*.spec.js"
         ]
       }
     },
@@ -42,19 +36,7 @@ module.exports = {
 
   overrides: {
     production: {
-      optimize: true,
-      files: {
-        javascripts: {
-          joinTo: {
-            'js/app.js':  [
-              /^(?!app)/,
-              /^app/,
-              "!app/**/*.spec.js",
-              "!app/config-development.js"
-            ]
-          }
-        }
-      }
+      optimize: true
     }
   }
 };
