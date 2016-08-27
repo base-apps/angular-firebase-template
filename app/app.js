@@ -37,6 +37,7 @@ const AppRun = () => {
 
 const HomeController = ($scope, $firebaseArray) => {
   $scope.loaded = false;
+  $scope.newmessage = "";
 
   var ref = firebase.database().ref().child('messages');
   $scope.messages = $firebaseArray(ref);
@@ -44,8 +45,10 @@ const HomeController = ($scope, $firebaseArray) => {
     $scope.loaded = true;
   });
 
-  $scope.save = (message) => {
-    $scope.messages.$add(message);
+  $scope.submit = () => {
+    $scope.messages.$add($scope.newmessage).then(function() {
+      $scope.newmessage = "";
+    });
   };
 };
 
