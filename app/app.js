@@ -19,14 +19,6 @@ const AppConfig = ($urlProvider, $locationProvider) => {
     enabled: false,
     requireBase: false
   });
-
-  // Initialize Firebase
-  firebase.initializeApp({
-    apiKey: 'AIzaSyBkB1IvviOcPq4z8Rs7nijEdIa9n1IvRlU',
-    authDomain: 'angular-firebase-template.firebaseapp.com',
-    databaseURL: 'https://angular-firebase-template.firebaseio.com',
-    storageBucket: ''
-  });
 };
 
 AppConfig.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -37,7 +29,7 @@ const AppRun = () => {
 
 const HomeController = ($scope, $firebaseArray) => {
   $scope.loaded = false;
-  $scope.newmessage = "";
+  $scope.newmessage = '';
 
   var ref = firebase.database().ref().child('messages');
   $scope.messages = $firebaseArray(ref);
@@ -46,8 +38,8 @@ const HomeController = ($scope, $firebaseArray) => {
   });
 
   $scope.submit = () => {
-    $scope.messages.$add($scope.newmessage).then(function() {
-      $scope.newmessage = "";
+    $scope.messages.$add($scope.newmessage).then(() => {
+      $scope.newmessage = '';
     });
   };
 };

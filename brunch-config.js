@@ -8,7 +8,13 @@ module.exports = {
         'js/app.js':  [
           /^(?!app)/,
           /^app/,
-          "!app/**/*.spec.js"
+          "!app/**/*.spec.js",
+          "!app/config-production.js"
+        ]
+      },
+      order: {
+        after: [
+          "app/config-*.js"
         ]
       }
     },
@@ -31,6 +37,24 @@ module.exports = {
         library: 'angular',
         overwrite: true
       });
+    }
+  },
+
+  overrides: {
+    production: {
+      optimize: true,
+      files: {
+        javascripts: {
+          joinTo: {
+            'js/app.js':  [
+              /^(?!app)/,
+              /^app/,
+              "!app/**/*.spec.js",
+              "!app/config-development.js"
+            ]
+          }
+        }
+      }
     }
   }
 };
