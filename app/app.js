@@ -2,6 +2,8 @@ import angular from 'angular';
 import 'angular-route';
 import 'angular-ui-router';
 import fs from 'fastclick';
+import 'firebase';
+import 'angularfire';
 import 'angular-base-apps/dist/js/base-apps';
 import 'angular-dynamic-routing/dynamicRouting';
 import 'angular-dynamic-routing/dynamicRouting.animations';
@@ -17,6 +19,14 @@ const AppConfig = ($urlProvider, $locationProvider) => {
     enabled: false,
     requireBase: false
   });
+
+  // Initialize Firebase
+  firebase.initializeApp({
+    apiKey: 'AIzaSyBkB1IvviOcPq4z8Rs7nijEdIa9n1IvRlU',
+    authDomain: 'angular-firebase-template.firebaseapp.com',
+    databaseURL: 'https://angular-firebase-template.firebaseio.com',
+    storageBucket: ''
+  });
 };
 
 AppConfig.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -25,8 +35,27 @@ const AppRun = () => {
   fs.FastClick.attach(document.body);
 };
 
+const HomeController = ($scope, $firebaseArray) => {
+  $scope.loaded = false;
+
+  var ref = firebase.database().ref().child('messages');
+  $scope.messages = $firebaseArray(ref);
+  $scope.messages.$loaded().then(() => {
+    $scope.loaded = true;
+  });
+
+  $scope.save = (message) => {
+    $scope.messages.$add(message);
+  };
+};
+
+HomeController.$inject = ['$scope', '$firebaseArray'];
+
 angular.module('application', [
   'ui.router',
+
+  // firebase
+  'firebase',
 
   // base apps
   'base',
@@ -42,4 +71,5 @@ angular.module('application', [
   'dynamicRouting.animations'
 ])
 .config(AppConfig)
-.run(AppRun);
+.run(AppRun)
+.controller('HomeController', HomeController);
