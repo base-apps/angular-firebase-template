@@ -24,10 +24,10 @@ module.exports = {
   hooks: {
     onCompile: function () {
       router({
-        src: './app/assets/**/*.html',
+        src: './public/**/*.html',
         dest: './public',
         path: './public/js/routes.js',
-        root: './app/assets',
+        root: './public',
         library: 'angular',
         overwrite: true
       });
