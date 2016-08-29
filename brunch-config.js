@@ -5,32 +5,35 @@ module.exports = {
   files: {
     javascripts: {
       joinTo: {
-        'js/app.js':  [
-          /^(?!app)/,
-          /^app/,
-          "!app/**/*.spec.js"
-        ]
+        'js/app.js':  [/^(?!app)/,/^app/,"!app/**/*.spec.js"]
       }
     },
-    stylesheets: { joinTo: '/css/app.css' }
+    stylesheets: {
+      joinTo: '/css/app.css'
+    }
   },
 
   plugins: {
-    babel: { presets: ['es2015'] }
+    babel: {
+      presets: ['es2015']
+    },
+    htmlPages: {
+      removeFrontMatter: true
+    }
   },
 
   optimize: false,
 
   hooks: {
-    onCompile: function () {
+    preCompile: (done) => {
       router({
-        src: './public/**/*.html',
-        dest: './public',
-        path: './public/js/routes.js',
-        root: './public',
+        src: 'app/**/*.html',
+        dest: 'build',
+        path: 'app/config-routes.js',
+        root: 'app',
         library: 'angular',
         overwrite: true
-      });
+      }).then(done);
     }
   },
 

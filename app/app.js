@@ -5,12 +5,15 @@ import fs from 'fastclick';
 import 'firebase';
 import 'angularfire';
 import 'angular-base-apps/dist/js/base-apps';
-import 'angular-dynamic-routing/dynamicRouting';
-import 'angular-dynamic-routing/dynamicRouting.animations';
 import 'angular-icons/dist/iconic';
 import 'angular-icons/dist/open-iconic';
 import 'angular-icons/dist/ionicons';
 import 'angular-icons/dist/material-icons';
+
+// Route Configuration
+import 'angular-dynamic-routing/dynamicRouting';
+import 'angular-dynamic-routing/dynamicRouting.animations';
+import './config-routes';
 
 // Firebase Configuration
 import firebaseconfig from './config-firebase';
