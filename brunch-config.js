@@ -36,7 +36,7 @@ module.exports = {
       router({
         src: 'app/**/*.html',
         dest: 'build',
-        path: 'app/config-routes.js',
+        path: 'app/config/config-routes.js',
         root: 'app',
         library: 'angular',
         overwrite: true
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     // TODO: Remove once htmlPages supports forceRemoveFrontMatter option
-    onCompile: function () {
+    onCompile: () => {
       router({
         src: './public/**/*.html',
         dest: './public',

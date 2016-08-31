@@ -6,7 +6,7 @@ import 'angular-base-apps';
 // Firebase Configuration
 import 'firebase';
 import 'angularfire';
-import firebaseconfig from './config-firebase';
+import firebaseconfig from './config/config-firebase';
 firebase.initializeApp(firebaseconfig);
 
 // Icon Configuration
@@ -17,7 +17,7 @@ import 'angular-icons/dist/material-icons';
 // Route Configuration
 import 'angular-dynamic-routing/dynamicRouting';
 import 'angular-dynamic-routing/dynamicRouting.animations';
-import './config-routes';
+import './config/config-routes';
 
 // Module Configuration
 import './modules/home';
