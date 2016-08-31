@@ -25,16 +25,18 @@ import 'angular-dynamic-routing/dynamicRouting.animations';
 import './config-routes';
 
 // Application Configuration
-const AppConfig = ($urlProvider, $locationProvider) => {
+const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
   $urlProvider.otherwise('/');
 
   $locationProvider.html5Mode({
     enabled: false,
     requireBase: false
   });
+
+  $firebaseRefProvider.registerUrl(firebaseconfig.databaseURL);
 };
 
-AppConfig.$inject = ['$urlRouterProvider', '$locationProvider'];
+AppConfig.$inject = ['$urlRouterProvider', '$locationProvider', '$firebaseRefProvider'];
 
 const AppRun = () => {
   fs.FastClick.attach(document.body);

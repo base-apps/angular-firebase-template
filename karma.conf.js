@@ -16,7 +16,8 @@
       // list of files / patterns to load in the browser
       files: [
         'public/js/vendor.js',
-        'node_modules/mockfirebase/browser/mockfirebase.js',
+        //'node_modules/mockfirebase/browser/mockfirebase.js',
+        'test/mockfirebase.js',
         'public/js/app.js',
         'test/config-tests.js',
         'app/**/*.spec.js'
@@ -45,7 +46,7 @@
       // possible values: 'dots', 'progress'
       // available reporters: https://npmjs.org/browse/keyword/karma-reporter
       reporters: [
-        'progress'
+        'spec'
       ],
 
 
@@ -74,12 +75,7 @@
           base: 'Chrome',
           flags: ['--no-sandbox']
         }
-      },
-
-
-      // Continuous Integration mode
-      // if true, Karma captures browsers, runs the tests and exits
-      singleRun: true
+      }
     };
 
     if (process.env.TRAVIS) {

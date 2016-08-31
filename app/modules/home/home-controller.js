@@ -1,20 +1,28 @@
 export default class HomeController {
-  constructor($firebaseArray) {
-    var self = this;
+  constructor($firebaseRef, $firebaseObject, $firebaseArray) {
+    var vm = this, ref;
 
-    var ref = firebase.database().ref().child('messages');
+    ref = $firebaseRef.default.child('person');
+    this.person = $firebaseObject(ref);
+    ref = $firebaseRef.default.child('messages');
     this.messages = $firebaseArray(ref);
+
     this.messages.$resolved = false;
     this.messages.$loaded().then(() => {
-      self.messages.$resolved = true;
+      vm.messages.$resolved = true;
     });
 
-    return this;
+    return vm;
   }
 
-  submit(message) {
-    return this.messages.$add(message);
+  submitMessage(message) {
+    this.messages.$add(message);
   }
-};
 
-HomeController.$inject = ['$firebaseArray'];
+  updateName(name) {
+    this.person.name = name;
+    this.person.$save();
+  }
+}
+
+HomeController.$inject = ['$firebaseRef', '$firebaseObject', '$firebaseArray'];
