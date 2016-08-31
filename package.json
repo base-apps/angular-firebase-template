@@ -9,14 +9,11 @@
     "test-debug": "./node_modules/karma/bin/karma start -single-run=false --debug"
   },
   "dependencies": {
-    "angular": "^1.5.3",
+    "angular": "^1.5.8",
     "angular-base-apps": "^2.0.0",
     "angular-dynamic-routing": "^1.0.1",
     "angular-icons": "^1.0.0",
-    "angular-route": "^1.5.3",
-    "angular-ui-router": "~0.3.0",
     "angularfire": "^2.0.2",
-    "fastclick": "^1.0.6",
     "firebase": "^3.3.0"
   },
   "devDependencies": {
