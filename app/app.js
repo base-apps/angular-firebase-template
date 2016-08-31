@@ -19,6 +19,9 @@ import 'angular-dynamic-routing/dynamicRouting';
 import 'angular-dynamic-routing/dynamicRouting.animations';
 import './config-routes';
 
+// Module Configuration
+import './modules/home';
+
 // Application Configuration
 const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
   $urlProvider.otherwise('/');
@@ -36,8 +39,6 @@ AppConfig.$inject = ['$urlRouterProvider', '$locationProvider', '$firebaseRefPro
 const AppRun = () => {
   fs.FastClick.attach(document.body);
 };
-
-import './modules/home';
 
 angular.module('application', [
   'ui.router',

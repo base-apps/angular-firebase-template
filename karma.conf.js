@@ -32,7 +32,7 @@
       // preprocess matching files before serving them to the browser
       // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
       preprocessors: {
-        'test/config-tests.js' : ['babel'],
+        'test/**/*.js' : ['babel'],
         '**/*.spec.js' : ['babel']
       },
       babelPreprocessor: {
@@ -75,7 +75,9 @@
           base: 'Chrome',
           flags: ['--no-sandbox']
         }
-      }
+      },
+
+      singleRun: true
     };
 
     if (process.env.TRAVIS) {

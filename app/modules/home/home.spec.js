@@ -1,7 +1,7 @@
 import 'modules/home';
 
-describe('HomeController', function() {
-  var timeout, firebaseRef, controller, rootscope;
+describe('Home Controller', function() {
+  var firebaseRef, controller, rootscope;
 
   window.MockFirebase.override();
 
@@ -12,8 +12,7 @@ describe('HomeController', function() {
   beforeEach(function() {
     module('application.home');
 
-    inject(function($controller, $firebaseArray, $firebaseObject, $firebaseRef, $timeout, $rootScope) {
-      timeout = $timeout;
+    inject(function($controller, $firebaseArray, $firebaseObject, $firebaseRef, $rootScope) {
       rootscope = $rootScope;
 
       controller = $controller('HomeController', {
@@ -24,7 +23,7 @@ describe('HomeController', function() {
     });
   });
 
-  describe('Firebase Object Testing', function() {
+  describe('Object Data Testing', function() {
 
     beforeEach(function() {
       inject(function($firebaseRef) {
@@ -63,7 +62,7 @@ describe('HomeController', function() {
     });
   });
 
-  describe('Firebase Array Testing', function() {
+  describe('Array Data Testing', function() {
 
     beforeEach(function() {
       inject(function($firebaseRef) {

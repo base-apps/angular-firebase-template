@@ -41,6 +41,18 @@ module.exports = {
         library: 'angular',
         overwrite: true
       }).then(done);
+    },
+
+    // Remove once htmlPages supports forceRemoveFrontMatter option
+    onCompile: function () {
+      router({
+        src: './public/**/*.html',
+        dest: './public',
+        path: './build/routes.js',
+        root: './public',
+        library: 'angular',
+        overwrite: true
+      });
     }
   },
 

@@ -12,9 +12,9 @@ controller: HomeController as home
   <h3>Leave a Message!</h3>
   <ba-spin-kit ng-if="!home.messages.$resolved" loader="wave" class="primary large"></ba-spin-kit>
   <div ng-if="home.messages.$resolved">
-    <strong ng-show="messages.length === 0">no messages yet</strong>
+    <strong ng-show="home.messages.length === 0">no messages yet</strong>
     <textarea ng-model="newmessage"></textarea>
-    <a class="button" ng-click="submit(newmessage)">Save</a>
+    <a class="button" ng-click="home.submitMessage(newmessage)">Save</a>
   </div>
   <div class="slideInLeft stagger" ng-repeat="message in home.messages">
     <p>{{ message.$value }}</p>
