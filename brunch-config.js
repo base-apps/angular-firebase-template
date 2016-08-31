@@ -43,7 +43,7 @@ module.exports = {
       }).then(done);
     },
 
-    // Remove once htmlPages supports forceRemoveFrontMatter option
+    // TODO: Remove once htmlPages supports forceRemoveFrontMatter option
     onCompile: function () {
       router({
         src: './public/**/*.html',

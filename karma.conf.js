@@ -19,7 +19,7 @@
         //'node_modules/mockfirebase/browser/mockfirebase.js',
         'test/mockfirebase.js',
         'public/js/app.js',
-        'test/config-tests.js',
+        'test/karma.boot.js',
         'app/**/*.spec.js'
       ],
 
@@ -45,9 +45,7 @@
       // test results reporter to use
       // possible values: 'dots', 'progress'
       // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-      reporters: [
-        'spec'
-      ],
+      reporters: ['spec'],
 
 
       // web server port
