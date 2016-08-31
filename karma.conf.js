@@ -15,8 +15,10 @@
 
       // list of files / patterns to load in the browser
       files: [
-        'https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.js',
+        'public/js/vendor.js',
+        'node_modules/mockfirebase/browser/mockfirebase.js',
         'public/js/app.js',
+        'test/config-tests.js',
         'app/**/*.spec.js'
       ],
 
@@ -29,14 +31,22 @@
       // preprocess matching files before serving them to the browser
       // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
       preprocessors: {
+        'test/config-tests.js' : ['babel'],
         '**/*.spec.js' : ['babel']
+      },
+      babelPreprocessor: {
+        options: {
+          "presets": ["es2015"]
+        }
       },
 
 
       // test results reporter to use
       // possible values: 'dots', 'progress'
       // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-      reporters: ['progress'],
+      reporters: [
+        'progress'
+      ],
 
 
       // web server port
@@ -66,9 +76,10 @@
         }
       },
 
+
       // Continuous Integration mode
       // if true, Karma captures browsers, runs the tests and exits
-      singleRun: false
+      singleRun: true
     };
 
     if (process.env.TRAVIS) {
