@@ -20,7 +20,7 @@ import 'angular-dynamic-routing/dynamicRouting.animations';
 import './config/config-routes';
 
 // Module Configuration
-import './modules/home';
+import './modules';
 
 // Application Configuration
 const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
