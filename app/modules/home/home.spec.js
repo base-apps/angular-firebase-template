@@ -1,18 +1,18 @@
 import 'modules/home';
 
-describe('Home Controller', function() {
+describe('Home Controller', () => {
   var firebaseRef, controller, rootscope;
 
   window.MockFirebase.override();
 
-  beforeEach(module('firebase.database', function(_$firebaseRefProvider_) {
+  beforeEach(module('firebase.database', (_$firebaseRefProvider_) => {
     _$firebaseRefProvider_.registerUrl('Mock');
   }));
 
-  beforeEach(function() {
+  beforeEach(() => {
     module('application.home');
 
-    inject(function($controller, $firebaseArray, $firebaseObject, $firebaseRef, $rootScope) {
+    inject(($controller, $firebaseArray, $firebaseObject, $firebaseRef, $rootScope) => {
       rootscope = $rootScope;
 
       controller = $controller('HomeController', {
@@ -23,18 +23,18 @@ describe('Home Controller', function() {
     });
   });
 
-  describe('Object Data Testing', function() {
+  describe('Object Data Testing', () => {
 
-    beforeEach(function() {
-      inject(function($firebaseRef) {
+    beforeEach(() => {
+      inject(($firebaseRef) => {
         firebaseRef = $firebaseRef.default.child('person');
       });
     });
 
-    it('should read object data from firebase', function() {
+    it('should read object data from firebase', () => {
       // save some data that our controller will read
-      var person = {
-        "name": "John Doe"
+      const person = {
+        name: 'John Doe'
       };
 
       firebaseRef.set(person);
@@ -44,11 +44,11 @@ describe('Home Controller', function() {
       expect(controller.person.name).toEqual(person.name);
     });
 
-    it('should write object data to firebase', function() {
+    it('should write object data to firebase', () => {
       var person;
 
       // save some data that our controller will read
-      firebaseRef.on("value", function (data) {
+      firebaseRef.on('value', (data) => {
         person = data.val();
       });
 
@@ -56,21 +56,21 @@ describe('Home Controller', function() {
       firebaseRef.flush();
       rootscope.$digest();
 
-      var keys = Object.keys(person);
+      const keys = Object.keys(person);
       expect(keys.length).toEqual(1);
       expect(controller.person.name).toEqual(person.name);
     });
   });
 
-  describe('Array Data Testing', function() {
+  describe('Array Data Testing', () => {
 
-    beforeEach(function() {
-      inject(function($firebaseRef) {
+    beforeEach(() => {
+      inject(($firebaseRef) => {
         firebaseRef = $firebaseRef.default.child('messages');
       });
     });
 
-    it('should read array data from firebase', function() {
+    it('should read array data from firebase', () => {
       // save some data that our controller will read
       var message = 'hello';
 
@@ -82,11 +82,11 @@ describe('Home Controller', function() {
       expect(controller.messages[0].$value).toEqual(message);
     });
 
-    it('should write array data to firebase', function() {
+    it('should write array data to firebase', () => {
       var response;
 
       // save some data that our controller will read
-      firebaseRef.on("value", function (data) {
+      firebaseRef.on('value', (data) => {
         response = data.val();
       });
 
@@ -94,7 +94,7 @@ describe('Home Controller', function() {
       firebaseRef.flush();
       rootscope.$digest();
 
-      var keys = Object.keys(response);
+      const keys = Object.keys(response);
       expect(keys.length).toEqual(1);
       expect(controller.messages.length).toEqual(1);
       expect(controller.messages[0].$value).toEqual(response[keys[0]]);
