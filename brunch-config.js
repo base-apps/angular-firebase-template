@@ -2,6 +2,12 @@ var fs = require('fs');
 var router = require('base-apps-router');
 
 module.exports = {
+  conventions: {
+    ignored: [
+      'test/mockfirebase.js'
+    ]
+  },
+
   files: {
     javascripts: {
       joinTo: {

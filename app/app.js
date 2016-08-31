@@ -1,12 +1,7 @@
 // Angular Base Apps Configuration
-import fs from 'angular-base-apps/node_modules/fastclick';
-import 'angular-base-apps/node_modules/viewport-units-buggyfill';
-import 'angular-base-apps/node_modules/tether/tether';
-import 'angular-base-apps/node_modules/hammerjs/hammer';
+import fs from 'fastclick';
 import angular from 'angular';
-import 'angular-base-apps/node_modules/angular-animate';
-import 'angular-base-apps/node_modules/angular-ui-router';
-import 'angular-base-apps/dist/js/base-apps';
+import 'angular-base-apps';
 
 // Firebase Configuration
 import 'firebase';
