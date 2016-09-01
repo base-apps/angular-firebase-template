@@ -1,0 +1,11 @@
+---
+name: account
+url: /account
+controller: AccountController as account
+---
+<div class="grid-container">
+  <h2>Login with Firebase!</h2>
+  <a class="button large" ng-click="account.signin('anonymous')">Anonymous Signin</a>
+  <h4>User Info</h4>
+  <pre>{{ account.printUserInfo() }}</pre>
+</div>

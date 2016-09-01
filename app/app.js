@@ -19,10 +19,9 @@ import 'angular-dynamic-routing/dynamicRouting';
 import 'angular-dynamic-routing/dynamicRouting.animations';
 import './config/config-routes';
 
-// Module Configuration
-import './modules';
-
 // Application Configuration
+import moduleconfig from './modules';
+
 const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
   $urlProvider.otherwise('/');
 
@@ -57,10 +56,7 @@ angular.module('application', [
 
   // dynamic routing
   'dynamicRouting',
-  'dynamicRouting.animations',
-
-  // modules
-  'application.home'
-])
+  'dynamicRouting.animations'
+].concat(moduleconfig))
 .config(AppConfig)
 .run(AppRun);

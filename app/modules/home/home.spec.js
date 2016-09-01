@@ -1,9 +1,15 @@
 import 'modules/home';
 
 describe('Home Controller', () => {
-  var firebaseRef, controller, rootscope;
+  var firebaseRef, controller, $rootscope;
 
-  window.MockFirebase.override();
+  beforeAll(() => {
+    window.MockFirebase.override();
+  });
+
+  afterAll(() => {
+    window.MockFirebase.restore();
+  });
 
   beforeEach(module('firebase.database', (_$firebaseRefProvider_) => {
     _$firebaseRefProvider_.registerUrl('Mock');
@@ -12,8 +18,8 @@ describe('Home Controller', () => {
   beforeEach(() => {
     module('application.home');
 
-    inject(($controller, $firebaseArray, $firebaseObject, $firebaseRef, $rootScope) => {
-      rootscope = $rootScope;
+    inject(($controller, $firebaseArray, $firebaseObject, $firebaseRef, _$rootScope_) => {
+      $rootscope = _$rootScope_;
 
       controller = $controller('HomeController', {
         $firebaseRef: $firebaseRef,
@@ -39,7 +45,7 @@ describe('Home Controller', () => {
 
       firebaseRef.set(person);
       firebaseRef.flush();
-      rootscope.$digest();
+      $rootscope.$digest();
 
       expect(controller.person.name).toEqual(person.name);
     });
@@ -54,7 +60,7 @@ describe('Home Controller', () => {
 
       controller.updateName('Joe');
       firebaseRef.flush();
-      rootscope.$digest();
+      $rootscope.$digest();
 
       const keys = Object.keys(person);
       expect(keys.length).toEqual(1);
@@ -76,7 +82,7 @@ describe('Home Controller', () => {
 
       firebaseRef.push(message);
       firebaseRef.flush();
-      rootscope.$digest();
+      $rootscope.$digest();
 
       expect(controller.messages.length).toEqual(1);
       expect(controller.messages[0].$value).toEqual(message);
@@ -92,7 +98,7 @@ describe('Home Controller', () => {
 
       controller.submitMessage('message');
       firebaseRef.flush();
-      rootscope.$digest();
+      $rootscope.$digest();
 
       const keys = Object.keys(response);
       expect(keys.length).toEqual(1);
