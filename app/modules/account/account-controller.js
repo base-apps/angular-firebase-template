@@ -1,17 +1,15 @@
 export default class AccountController {
   constructor($firebaseAuthService, $log, BaseAppsApi) {
-    this.providers = ['twitter', 'facebook', 'google', 'github'];
     this.authService = $firebaseAuthService;
     this.authLoading = false;
     this.$log = $log;
     this.BaseAppsApi = BaseAppsApi;
-
     return this;
   }
 
   signin(provider) {
-    var $log = this.$log;
-    var BaseAppsApi = this.BaseAppsApi;
+    const $log = this.$log;
+    const BaseAppsApi = this.BaseAppsApi;
 
     switch (provider) {
       case 'anonymous':
@@ -36,7 +34,7 @@ export default class AccountController {
             $log.log('Login Failed!', error);
             BaseAppsApi.publish('account-notifications', {
               title: provider.substr(0, 1).toUpperCase() + provider.substr(1) + ' Login Failed',
-              content: error.message + ' (email: ' + error.email + ')',
+              content: error.message + (error.email ? ' (email: ' + error.email + ')' : ''),
               color: 'alert'
             });
           })

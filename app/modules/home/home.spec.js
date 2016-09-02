@@ -8,7 +8,7 @@ import 'modules/home';
  *  - $rootscope.$digest() must be called for the controller to consume the changes made to firebase
  */
 describe('Home Controller', () => {
-  var firebaseRef, controller, $rootscope;
+  let firebaseRef, controller, $rootscope;
 
   beforeAll(() => {
     window.MockFirebase.override();
@@ -59,7 +59,7 @@ describe('Home Controller', () => {
     });
 
     it('should write object data to firebase', () => {
-      var person;
+      let person;
 
       // save some data that our controller will read
       firebaseRef.on('value', (data) => {
@@ -86,7 +86,7 @@ describe('Home Controller', () => {
 
     it('should read array data from firebase', () => {
       // save some data that our controller will read
-      var message = 'hello';
+      let message = 'hello';
 
       firebaseRef.push(message);
       firebaseRef.flush();
@@ -97,7 +97,7 @@ describe('Home Controller', () => {
     });
 
     it('should write array data to firebase', () => {
-      var response;
+      let response;
 
       // save some data that our controller will read
       firebaseRef.on('value', (data) => {
@@ -139,7 +139,7 @@ describe('Home Controller', () => {
     });
 
     it('should write object data to firebase', () => {
-      var person;
+      let person;
 
       // save some data that our controller will read
       firebaseRef.on('value', (data) => {
@@ -168,7 +168,7 @@ describe('Home Controller', () => {
 
     it('should read array data from firebase', () => {
       // save some data that our controller will read
-      var message = 'hello';
+      let message = 'hello';
 
       firebaseRef.push(message);
       $rootscope.$digest();
@@ -178,7 +178,7 @@ describe('Home Controller', () => {
     });
 
     it('should write array data to firebase', () => {
-      var response;
+      let response;
 
       // save some data that our controller will read
       firebaseRef.on('value', (data) => {

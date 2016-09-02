@@ -1,6 +1,7 @@
 export default class HomeController {
   constructor($firebaseRef, $firebaseObject, $firebaseArray, $timeout) {
-    var vm = this, ref;
+    const self = this;
+    let ref;
 
     ref = $firebaseRef.default.child('person');
     this.person = $firebaseObject(ref);
@@ -9,16 +10,16 @@ export default class HomeController {
 
     this.messages.$resolved = false;
     this.messages.$loaded().then(() => {
-      vm.messages.$resolved = true;
+      self.messages.$resolved = true;
     });
 
     // delay message rendering until after view animation
     this.showMessages = false;
     $timeout(function() {
-      vm.showMessages = true;
+      self.showMessages = true;
     }, 750);
 
-    return vm;
+    return self;
   }
 
   submitMessage(message) {

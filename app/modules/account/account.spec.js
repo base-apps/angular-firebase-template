@@ -8,7 +8,7 @@ import 'modules/account';
  *  - $timeout.flush() must be called to trigger the $firebaseAuth.$onAuthStateChanged callback
  */
 describe('Account Controller', () => {
-  var firebaseAuth, authService, controller, $timeout;
+  let firebaseAuth, authService, controller, $timeout;
 
   beforeAll(() => {
     window.MockFirebase.override();
@@ -38,7 +38,7 @@ describe('Account Controller', () => {
   describe('Signin', () => {
 
     it('should sign in anonymously', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -53,7 +53,7 @@ describe('Account Controller', () => {
     });
 
     it('should sign in with google', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -70,7 +70,7 @@ describe('Account Controller', () => {
     });
 
     it('should sign in with twitter', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -87,7 +87,7 @@ describe('Account Controller', () => {
     });
 
     it('should sign in with facebook', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -104,7 +104,7 @@ describe('Account Controller', () => {
     });
 
     it('should sign in with github', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -124,7 +124,7 @@ describe('Account Controller', () => {
   describe('Signout', () => {
 
     it('should sign out', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
@@ -150,7 +150,7 @@ describe('Account Controller', () => {
     afterEach(() => firebaseAuth.autoFlush(false));
 
     it('should sign out', () => {
-      var response = null;
+      let response = null;
 
       authService.$onAuthStateChanged((user) => {
         response = user;
