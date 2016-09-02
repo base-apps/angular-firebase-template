@@ -1,25 +1,38 @@
 export default class AccountController {
-  constructor($firebaseAuthService) {
+  constructor($firebaseAuthService, $log) {
     this.providers = ['twitter', 'facebook', 'google', 'github'];
     this.authService = $firebaseAuthService;
     this.authLoading = false;
+    this.$log = $log;
 
     return this;
   }
 
   signin(provider) {
+    var $log = this.$log;
+
     switch (provider) {
       case 'anonymous':
         this.authLoading = true;
-        this.authService.$signInAnonymously().catch((error) => {
-          console.log('Login Failed!', error);
-        }).finally(() => this.authLoading = false);
-        break;
+        return this.authService.$signInAnonymously()
+          .catch((error) => {
+            $log.log('Login Failed!', error);
+          })
+          .finally(() => this.authLoading = false);
       case 'google':
-        this.authService.$signInWithPopup('google').catch((error) => {
-          console.log('Login Failed!', error);
-        }).finally(() => this.authLoading = false);
+      case 'twitter':
+      case 'facebook':
+      case 'github':
+        this.authLoading = true;
+        return this.authService.$signInWithPopup(provider)
+          .catch((error) => {
+            $log.log('Login Failed!', error);
+          })
+          .finally(() => this.authLoading = false);
         break;
+      default:
+        $log.log('Provider not supported: ' + provider);
+        return null;
     }
   }
 
@@ -29,8 +42,9 @@ export default class AccountController {
 
   signout() {
     this.authLoading = true;
-    this.authService.$signOut().finally(() => this.authLoading = false);
+    return this.authService.$signOut()
+      .finally(() => this.authLoading = false);
   }
 }
 
-AccountController.$inject = ['$firebaseAuthService'];
+AccountController.$inject = ['$firebaseAuthService', '$log'];

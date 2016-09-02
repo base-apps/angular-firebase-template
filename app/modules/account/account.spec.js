@@ -21,13 +21,14 @@ describe('Account Controller', () => {
   beforeEach(() => {
     module('application.account');
 
-    inject(($controller, $firebaseAuth, _$timeout_) => {
+    inject(($controller, $log, $firebaseAuth, _$timeout_) => {
       firebaseAuth = firebase.auth();
       authService = $firebaseAuth(firebaseAuth);
       $timeout = _$timeout_;
 
       controller = $controller('AccountController', {
-        $firebaseAuthService: authService
+        $firebaseAuthService: authService,
+        $log: $log
       });
     });
   });
@@ -64,6 +65,57 @@ describe('Account Controller', () => {
       expect(response.isAnonymous).toEqual(false);
       expect(response.providerData.length).toEqual(1);
       expect(response.providerData[0].providerId).toEqual('google.com');
+    });
+
+    it('should sign in with twitter', () => {
+      var response = null;
+
+      authService.$onAuthStateChanged((user) => {
+        response = user;
+      });
+
+      controller.signin('twitter');
+      firebaseAuth.flush();
+      $timeout.flush();
+
+      expect(response).not.toEqual(null);
+      expect(response.isAnonymous).toEqual(false);
+      expect(response.providerData.length).toEqual(1);
+      expect(response.providerData[0].providerId).toEqual('twitter.com');
+    });
+
+    it('should sign in with facebook', () => {
+      var response = null;
+
+      authService.$onAuthStateChanged((user) => {
+        response = user;
+      });
+
+      controller.signin('facebook');
+      firebaseAuth.flush();
+      $timeout.flush();
+
+      expect(response).not.toEqual(null);
+      expect(response.isAnonymous).toEqual(false);
+      expect(response.providerData.length).toEqual(1);
+      expect(response.providerData[0].providerId).toEqual('facebook.com');
+    });
+
+    it('should sign in with github', () => {
+      var response = null;
+
+      authService.$onAuthStateChanged((user) => {
+        response = user;
+      });
+
+      controller.signin('github');
+      firebaseAuth.flush();
+      $timeout.flush();
+
+      expect(response).not.toEqual(null);
+      expect(response.isAnonymous).toEqual(false);
+      expect(response.providerData.length).toEqual(1);
+      expect(response.providerData[0].providerId).toEqual('github.com');
     });
   });
 

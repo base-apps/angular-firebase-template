@@ -11447,10 +11447,20 @@ function FirebaseAuth () {
   this.currentUser = null;
   this._auth = {
     listeners: [],
+    completionListeners: [],
     users: [],
     uidCounter: 1
   };
 }
+
+FirebaseAuth.prototype.changeAuthState = function (userData) {
+  this._defer('changeAuthState', _.toArray(arguments), function() {
+    if (!_.isEqual(this.currentUser, userData)) {
+      this.currentUser = _.isObject(userData) ? userData : null;
+      this._triggerAuthEvent();
+    }
+  });
+};
 
 FirebaseAuth.prototype.onAuthStateChanged = function (callback) {
   var self = this;
@@ -11480,6 +11490,24 @@ FirebaseAuth.prototype.getEmailUser = function (email) {
 
 // number of arguments
 var authMethods = {
+  authWithCustomToken: 2,
+  authAnonymously: 1,
+  authWithPassword: 2,
+  authWithOAuthPopup: 2,
+  authWithOAuthRedirect: 2,
+  authWithOAuthToken: 3
+};
+
+Object.keys(authMethods)
+  .forEach(function (method) {
+    var length = authMethods[method];
+    var callbackIndex = length - 1;
+    FirebaseAuth.prototype[method] = function () {
+      this._authEvent(method, arguments[callbackIndex]);
+    };
+  });
+
+var signinMethods = {
   signInWithCustomToken: function(authToken) {
     return {
       isAnonymous: false
@@ -11515,9 +11543,9 @@ var authMethods = {
   }
 };
 
-Object.keys(authMethods)
+Object.keys(signinMethods)
   .forEach(function (method) {
-    var getUser = authMethods[method];
+    var getUser = signinMethods[method];
     FirebaseAuth.prototype[method] = function () {
       var self = this;
       var user = getUser.apply(this, arguments);
@@ -11527,7 +11555,7 @@ Object.keys(authMethods)
           self.currentUser = user;
           resolve(user);
           self._triggerAuthEvent();
-        });
+        }, true);
       });
       return promise;
     };
@@ -11538,7 +11566,7 @@ FirebaseAuth.prototype.auth = function (token, callback) {
   this._authEvent('auth', callback);
 };
 
-FirebaseAuth.prototype._authEvent = function (method, callback) {
+FirebaseAuth.prototype._authEvent = function (method, callback, defercallback) {
   var err = this._nextErr(method);
   if (!callback) return;
   if (err) {
@@ -11549,14 +11577,25 @@ FirebaseAuth.prototype._authEvent = function (method, callback) {
     });
   }
   else {
-    this._defer(method, _.toArray(arguments), function() {
-      callback();
-    });
+    if (defercallback) {
+      this._defer(method, _.toArray(arguments), function() {
+        callback();
+      });
+    } else {
+      // if there is no error, then we just add our callback to the listener
+      // stack and wait for the next changeAuthState() call.
+      this._auth.completionListeners.push({fn: callback});
+    }
   }
 };
 
 FirebaseAuth.prototype._triggerAuthEvent = function () {
+  var completionListeners = this._auth.completionListeners;
+  this._auth.completionListeners = [];
   var user = this.currentUser;
+  completionListeners.forEach(function (parts) {
+    parts.fn.call(parts.context, null, _.cloneDeep(user));
+  });
   var listeners = _.cloneDeep(this._auth.listeners);
   listeners.forEach(function (parts) {
     parts.fn.call(parts.context, _.cloneDeep(user));
@@ -11584,6 +11623,13 @@ FirebaseAuth.prototype.offAuth = function (onComplete, context) {
   }
 };
 
+FirebaseAuth.prototype.unauth = function () {
+  if (this.currentUser !== null) {
+    this.currentUser = null;
+    this._triggerAuthEvent();
+  }
+};
+
 FirebaseAuth.prototype.signOut = function () {
   var self = this, updateuser = this.currentUser !== null;
   var promise = new rsvp.Promise(function(resolve, reject) {
@@ -11595,7 +11641,7 @@ FirebaseAuth.prototype.signOut = function () {
       if (updateuser) {
         self._triggerAuthEvent();
       }
-    });
+    }, true);
   });
   return promise;
 };
@@ -13299,11 +13345,20 @@ exports.event = function (name) {
     window.mockfirebase.MockFirebaseSdk.auth.GoogleAuthProvider = function() {
       this.providerId = "google.com";
     };
+    window.mockfirebase.MockFirebaseSdk.auth.TwitterAuthProvider = function() {
+      this.providerId = "twitter.com";
+    };
+    window.mockfirebase.MockFirebaseSdk.auth.FacebookAuthProvider = function() {
+      this.providerId = "facebook.com";
+    };
+    window.mockfirebase.MockFirebaseSdk.auth.GithubAuthProvider = function() {
+      this.providerId = "github.com";
+    };
 
     var originals = false;
     window.MockFirebase.override = function () {
       originals = {
-        firebase3: window.firebase,
+        firebasesdk: window.firebase,
         firebase: window.Firebase,
         login: window.FirebaseSimpleLogin
       };
@@ -13313,7 +13368,7 @@ exports.event = function (name) {
     };
     window.MockFirebase.restore = function () {
       if (!originals) return;
-      window.firebase = originals.firebase3;
+      window.firebase = originals.firebasesdk;
       window.Firebase = originals.firebase;
       window.FirebaseSimpleLogin = originals.login;
     };
