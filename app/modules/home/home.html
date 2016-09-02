@@ -19,7 +19,7 @@ animationOut: slideOutLeft
     <textarea ng-model="newmessage"></textarea>
     <a class="button" ng-click="home.submitMessage(newmessage)">Save</a>
   </div>
-  <div class="slideInLeft stagger" ng-repeat="message in home.messages">
-    <p>{{ message.$value }}</p>
+  <div class="slideInLeft stagger" ng-show="home.showMessages" ng-repeat="message in home.messages">
+    <blockquote><pre>{{ message.$value }}</pre></blockquote>
   </div>
 </div>

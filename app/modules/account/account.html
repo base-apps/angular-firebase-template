@@ -22,6 +22,6 @@ animationOut: slideOutRight
   </div>
   <div ng-show="!account.authLoading && account.authService.$getAuth()">
     <h4>User Info</h4>
-    <pre style="overflow-y: hidden;">{{ account.printUserInfo() }}</pre>
+    <blockquote><pre>{{ account.printUserInfo() }}</pre></blockquote>
   </div>
 </div>
