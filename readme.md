@@ -32,7 +32,7 @@ You'll need the following software installed to get started.
 
 ## Configuration
 
-Update `app/config-firebase.js` to include your Firebase configuration.  You can find more info [here](https://firebase.google.com/docs/web/setup).
+Update `app/config/config-firebase.js` to include your Firebase configuration.  You can find more info [here](https://firebase.google.com/docs/web/setup).
 
 ## Get Started
 
