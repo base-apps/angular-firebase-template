@@ -43,7 +43,7 @@ module.exports = {
         dest: 'build',
         path: 'app/config/config-routes.js',
         root: 'app',
-        library: 'angular',
+        library: 'node',
         overwrite: true
       }).then(done);
     },
@@ -55,7 +55,7 @@ module.exports = {
         dest: './public',
         path: './build/routes.js',
         root: './public',
-        library: 'angular',
+        library: 'node',
         overwrite: true
       });
     }

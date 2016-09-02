@@ -17,12 +17,12 @@ import 'angular-icons/dist/material-icons';
 // Route Configuration
 import 'angular-dynamic-routing/dynamicRouting';
 import 'angular-dynamic-routing/dynamicRouting.animations';
-import './config/config-routes';
+import routeconfig from './config/config-routes';
 
 // Application Configuration
 import moduleconfig from './modules';
 
-const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
+const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider, $BaseAppsStateProvider) => {
   $urlProvider.otherwise('/');
 
   $locationProvider.html5Mode({
@@ -31,9 +31,11 @@ const AppConfig = ($urlProvider, $locationProvider, $firebaseRefProvider) => {
   });
 
   $firebaseRefProvider.registerUrl(firebaseconfig.databaseURL);
+
+  $BaseAppsStateProvider.registerDynamicRoutes(routeconfig);
 };
 
-AppConfig.$inject = ['$urlRouterProvider', '$locationProvider', '$firebaseRefProvider'];
+AppConfig.$inject = ['$urlRouterProvider', '$locationProvider', '$firebaseRefProvider', '$BaseAppsStateProvider'];
 
 const AppRun = () => {
   fs.FastClick.attach(document.body);

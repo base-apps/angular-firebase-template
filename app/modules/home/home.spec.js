@@ -1,5 +1,12 @@
 import 'modules/home';
 
+/*
+ * Firebase Database Unit Tests
+ *
+ * Notes for Writing Tests:
+ *  - firebaseRef.flush() must be called for the firebase database operation to complete
+ *  - $rootscope.$digest() must be called for the controller to consume the changes made to firebase
+ */
 describe('Home Controller', () => {
   var firebaseRef, controller, $rootscope;
 
@@ -98,6 +105,86 @@ describe('Home Controller', () => {
 
       controller.submitMessage('message');
       firebaseRef.flush();
+      $rootscope.$digest();
+
+      const keys = Object.keys(response);
+      expect(keys.length).toEqual(1);
+      expect(controller.messages.length).toEqual(1);
+      expect(controller.messages[0].$value).toEqual(response[keys[0]]);
+    });
+  });
+
+  describe('Object Data Testing [auth flushing enabled]', () => {
+
+    beforeEach(() => {
+      inject(($firebaseRef) => {
+        firebaseRef = $firebaseRef.default.child('person');
+      });
+    });
+
+    beforeEach(() => firebaseRef.autoFlush(true));
+    afterEach(() => firebaseRef.autoFlush(false));
+
+    it('should read object data from firebase', () => {
+      // save some data that our controller will read
+      const person = {
+        name: 'John Doe'
+      };
+
+      firebaseRef.set(person);
+      $rootscope.$digest();
+
+      expect(controller.person.name).toEqual(person.name);
+    });
+
+    it('should write object data to firebase', () => {
+      var person;
+
+      // save some data that our controller will read
+      firebaseRef.on('value', (data) => {
+        person = data.val();
+      });
+
+      controller.updateName('Joe');
+      $rootscope.$digest();
+
+      const keys = Object.keys(person);
+      expect(keys.length).toEqual(1);
+      expect(controller.person.name).toEqual(person.name);
+    });
+  });
+
+  describe('Array Data Testing [auth flushing enabled]', () => {
+
+    beforeEach(() => {
+      inject(($firebaseRef) => {
+        firebaseRef = $firebaseRef.default.child('messages');
+      });
+    });
+
+    beforeEach(() => firebaseRef.autoFlush(true));
+    afterEach(() => firebaseRef.autoFlush(false));
+
+    it('should read array data from firebase', () => {
+      // save some data that our controller will read
+      var message = 'hello';
+
+      firebaseRef.push(message);
+      $rootscope.$digest();
+
+      expect(controller.messages.length).toEqual(1);
+      expect(controller.messages[0].$value).toEqual(message);
+    });
+
+    it('should write array data to firebase', () => {
+      var response;
+
+      // save some data that our controller will read
+      firebaseRef.on('value', (data) => {
+        response = data.val();
+      });
+
+      controller.submitMessage('message');
       $rootscope.$digest();
 
       const keys = Object.keys(response);
