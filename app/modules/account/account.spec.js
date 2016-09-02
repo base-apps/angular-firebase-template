@@ -90,7 +90,7 @@ describe('Account Controller', () => {
     });
   });
 
-  describe('Signout [auth flushing enabled]', () => {
+  describe('Signout [auto flushing enabled]', () => {
 
     beforeEach(() => firebaseAuth.autoFlush(true));
     afterEach(() => firebaseAuth.autoFlush(false));

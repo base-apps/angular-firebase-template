@@ -114,7 +114,7 @@ describe('Home Controller', () => {
     });
   });
 
-  describe('Object Data Testing [auth flushing enabled]', () => {
+  describe('Object Data Testing [auto flushing enabled]', () => {
 
     beforeEach(() => {
       inject(($firebaseRef) => {
@@ -154,7 +154,7 @@ describe('Home Controller', () => {
     });
   });
 
-  describe('Array Data Testing [auth flushing enabled]', () => {
+  describe('Array Data Testing [auto flushing enabled]', () => {
 
     beforeEach(() => {
       inject(($firebaseRef) => {
