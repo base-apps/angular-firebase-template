@@ -19,6 +19,7 @@ describe('Account Controller', () => {
   });
 
   beforeEach(() => {
+    module('base.core');
     module('application.account');
 
     inject(($controller, $log, $firebaseAuth, _$timeout_, BaseAppsApi) => {
