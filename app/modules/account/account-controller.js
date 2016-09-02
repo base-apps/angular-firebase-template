@@ -1,15 +1,17 @@
 export default class AccountController {
-  constructor($firebaseAuthService, $log) {
+  constructor($firebaseAuthService, $log, BaseAppsApi) {
     this.providers = ['twitter', 'facebook', 'google', 'github'];
     this.authService = $firebaseAuthService;
     this.authLoading = false;
     this.$log = $log;
+    this.BaseAppsApi = BaseAppsApi;
 
     return this;
   }
 
   signin(provider) {
     var $log = this.$log;
+    var BaseAppsApi = this.BaseAppsApi;
 
     switch (provider) {
       case 'anonymous':
@@ -17,6 +19,11 @@ export default class AccountController {
         return this.authService.$signInAnonymously()
           .catch((error) => {
             $log.log('Login Failed!', error);
+            BaseAppsApi.publish('account-notifications', {
+              title: 'Anonymous Login Failed',
+              content: error.message,
+              color: 'alert'
+            });
           })
           .finally(() => this.authLoading = false);
       case 'google':
@@ -27,6 +34,11 @@ export default class AccountController {
         return this.authService.$signInWithPopup(provider)
           .catch((error) => {
             $log.log('Login Failed!', error);
+            BaseAppsApi.publish('account-notifications', {
+              title: provider.substr(0, 1).toUpperCase() + provider.substr(1) + ' Login Failed',
+              content: error.message + ' (email: ' + error.email + ')',
+              color: 'alert'
+            });
           })
           .finally(() => this.authLoading = false);
         break;
@@ -47,4 +59,4 @@ export default class AccountController {
   }
 }
 
-AccountController.$inject = ['$firebaseAuthService', '$log'];
+AccountController.$inject = ['$firebaseAuthService', '$log', 'BaseAppsApi'];

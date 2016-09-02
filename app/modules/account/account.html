@@ -5,6 +5,7 @@ controller: AccountController as account
 animationIn: slideInLeft
 animationOut: slideOutRight
 ---
+<ba-notification-set id="account-notifications" position="top-right"></ba-notification-set>
 <div class="grid-container">
   <h2>Authentication with Firebase!</h2>
   <div ng-show="!account.authLoading && !account.authService.$getAuth()">

@@ -21,14 +21,15 @@ describe('Account Controller', () => {
   beforeEach(() => {
     module('application.account');
 
-    inject(($controller, $log, $firebaseAuth, _$timeout_) => {
+    inject(($controller, $log, $firebaseAuth, _$timeout_, BaseAppsApi) => {
       firebaseAuth = firebase.auth();
       authService = $firebaseAuth(firebaseAuth);
       $timeout = _$timeout_;
 
       controller = $controller('AccountController', {
         $firebaseAuthService: authService,
-        $log: $log
+        $log: $log,
+        BaseAppsApi: BaseAppsApi
       });
     });
   });
