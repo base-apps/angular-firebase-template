@@ -25,13 +25,14 @@ describe('Home Controller', () => {
   beforeEach(() => {
     module('application.home');
 
-    inject(($controller, $firebaseArray, $firebaseObject, $firebaseRef, _$rootScope_) => {
+    inject(($controller, $firebaseArray, $firebaseObject, $firebaseRef, _$rootScope_, $timeout) => {
       $rootscope = _$rootScope_;
 
       controller = $controller('HomeController', {
         $firebaseRef: $firebaseRef,
         $firebaseObject: $firebaseObject,
-        $firebaseArray: $firebaseArray
+        $firebaseArray: $firebaseArray,
+        $timeout: $timeout
       });
     });
   });

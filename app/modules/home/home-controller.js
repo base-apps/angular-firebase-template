@@ -1,5 +1,5 @@
 export default class HomeController {
-  constructor($firebaseRef, $firebaseObject, $firebaseArray) {
+  constructor($firebaseRef, $firebaseObject, $firebaseArray, $timeout) {
     var vm = this, ref;
 
     ref = $firebaseRef.default.child('person');
@@ -11,6 +11,12 @@ export default class HomeController {
     this.messages.$loaded().then(() => {
       vm.messages.$resolved = true;
     });
+
+    // delay message rendering until after view animation
+    this.showMessages = false;
+    $timeout(function() {
+      vm.showMessages = true;
+    }, 750);
 
     return vm;
   }
@@ -25,4 +31,4 @@ export default class HomeController {
   }
 }
 
-HomeController.$inject = ['$firebaseRef', '$firebaseObject', '$firebaseArray'];
+HomeController.$inject = ['$firebaseRef', '$firebaseObject', '$firebaseArray', '$timeout'];
