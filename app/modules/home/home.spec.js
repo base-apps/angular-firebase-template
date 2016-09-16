@@ -86,7 +86,7 @@ describe('Home Controller', () => {
 
     it('should read array data from firebase', () => {
       // save some data that our controller will read
-      let message = 'hello';
+      const message = 'hello';
 
       firebaseRef.push(message);
       firebaseRef.flush();
@@ -168,7 +168,7 @@ describe('Home Controller', () => {
 
     it('should read array data from firebase', () => {
       // save some data that our controller will read
-      let message = 'hello';
+      const message = 'hello';
 
       firebaseRef.push(message);
       $rootscope.$digest();

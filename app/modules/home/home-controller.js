@@ -14,10 +14,11 @@ export default class HomeController {
     });
 
     // delay message rendering until after view animation
+    const animationDelay = 750;
     this.showMessages = false;
-    $timeout(function() {
+    $timeout(() => {
       self.showMessages = true;
-    }, 750);
+    }, animationDelay);
 
     return self;
   }

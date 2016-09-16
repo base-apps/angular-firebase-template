@@ -39,7 +39,6 @@ export default class AccountController {
             });
           })
           .finally(() => this.authLoading = false);
-        break;
       default:
         $log.log('Provider not supported: ' + provider);
         return null;
