@@ -2,10 +2,15 @@ var fs = require('fs');
 var router = require('base-apps-router');
 
 module.exports = {
+
   conventions: {
-    ignored: [
-      'test/mockfirebase.js'
-    ]
+    assets:   /^(app)(\\|\/)(assets)/,
+    ignored:  [/\/_/, /\.(spec|scenario)\.(js$)/, 'test/mockfirebase.js']
+  },
+
+  paths: {
+    'public':   'public',
+    'watched':  ['app']
   },
 
   files: {
@@ -33,8 +38,6 @@ module.exports = {
     }
   },
 
-  optimize: false,
-
   hooks: {
     preCompile: (done) => {
       router({
@@ -45,24 +48,6 @@ module.exports = {
         library: 'node',
         overwrite: true
       }).then(done);
-    },
-
-    // TODO: Remove once htmlPages supports forceRemoveFrontMatter option
-    onCompile: () => {
-      router({
-        src: './public/**/*.html',
-        dest: './public',
-        path: './build/routes.js',
-        root: './public',
-        library: 'node',
-        overwrite: true
-      });
-    }
-  },
-
-  overrides: {
-    production: {
-      optimize: true
     }
   }
 };

@@ -17,9 +17,10 @@
       files: [
         'public/js/vendor.js',
         //'node_modules/mockfirebase/browser/mockfirebase.js',
-        'test/mockfirebase.js',
         'public/js/app.js',
+        'test/mockfirebase.js',
         'test/karma.boot.js',
+        'node_modules/angular-mocks/angular-mocks.js',
         'app/**/*.spec.js'
       ],
 
