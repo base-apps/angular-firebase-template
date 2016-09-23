@@ -15,8 +15,8 @@
 
       // list of files / patterns to load in the browser
       files: [
+        'public/js/modernizr.js',
         'public/js/vendor.js',
-        //'node_modules/mockfirebase/browser/mockfirebase.js',
         'public/js/app.js',
         'test/mockfirebase.js',
         'test/karma.boot.js',
