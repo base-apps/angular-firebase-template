@@ -1,3 +1,2 @@
 app/config/config-routes.js
-build/*
 test/mockfirebase.js

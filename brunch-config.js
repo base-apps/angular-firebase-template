@@ -42,7 +42,6 @@ module.exports = {
     preCompile: (done) => {
       router({
         src: 'app/**/*.html',
-        dest: 'build',
         path: 'app/config/config-routes.js',
         root: 'app',
         library: 'node',
