@@ -19,8 +19,7 @@ on a modern language platform with compile time safety across the entire stack o
 
 ### Firebase
   * [AngularFire](https://github.com/firebase/angularfire) for Firebase integration
-  * [mockfirebase](https://github.com/katowulf/mockfirebase) for unit testing Firebase code
-    * See [tutorial](https://github.com/katowulf/mockfirebase/wiki/Testing-AngularFire) for more info on Firebase unit testing
+  * [firebase-mock](https://github.com/soumak77/firebase-mock) for unit testing Firebase code
 
 ## Requirements
 

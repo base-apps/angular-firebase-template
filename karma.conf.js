@@ -18,7 +18,7 @@
         'public/js/modernizr.js',
         'public/js/vendor.js',
         'public/js/app.js',
-        'test/mockfirebase.js',
+        'node_modules/firebase-mock/browser/firebasemock.js',
         'test/karma.boot.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'app/**/*.spec.js'
